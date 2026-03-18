@@ -1,4 +1,1 @@
 # chuumongolia
-# chuumongolia
-# chuumongolia
-# chuumongolia
