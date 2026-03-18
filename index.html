@@ -724,7 +724,7 @@
               </div>
               <div>
                 <h4 class="font-semibold text-sm mb-1" style="color:var(--text);">Email</h4>
-                <p id="contact-email-display" class="text-sm" style="color:var(--text-muted);">info@chuu.com</p>
+                <p id="contact-email-display" class="text-sm" style="color:var(--text-muted);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="30595e565f70535845451e535f5d">[email&#160;protected]</a></p>
               </div>
             </div>
           </div>
@@ -922,7 +922,7 @@
 </div>
 
 <!-- SheetJS for Excel export -->
-<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <script>
 // ==================== CONFIG & STATE ====================
@@ -1238,7 +1238,7 @@ function exportToExcel() {
 const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzhfxEmEaGC8kJqU5NcwwjPFNKILBC6NxQkJ9XLu0fyoa9L8Pm_m_dJS_Mu0kMwa1Ed/exec';
 
 async function sendToSheets(payload) {
-  if (SHEETS_WEBHOOK_URL.includes('AKfycbzhfxEmEaGC8kJqU5NcwwjPFNKILBC6NxQkJ9XLu0fyoa9L8Pm_m_dJS_Mu0kMwa1Ed')) return; // not configured yet
+  if (SHEETS_WEBHOOK_URL.includes('YOUR_SCRIPT_ID')) return; // not configured yet
   try {
     await fetch(SHEETS_WEBHOOK_URL, {
       method: 'POST',
@@ -1287,7 +1287,7 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
 
   if (result.isOk) {
     showToast('Booking submitted! We\'ll contact you soon.');
-    await sendToSheets(payload);
+    sendToSheets(payload); // no await — fires in background, instant response
     e.target.reset();
   } else {
     showToast('Failed to submit booking. Please try again.', true);
@@ -1328,7 +1328,7 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
 
   if (result.isOk) {
     showToast('Message sent! We\'ll get back to you shortly.');
-    await sendToSheets(payload);
+    sendToSheets(payload); // no await — fires in background, instant response
     e.target.reset();
   } else {
     showToast('Failed to send message.', true);
@@ -1369,7 +1369,7 @@ document.getElementById('membership-form').addEventListener('submit', async (e) 
 
   if (result.isOk) {
     showToast('Membership application submitted! Welcome aboard!');
-    await sendToSheets(payload);
+    sendToSheets(payload); // no await — fires in background, instant response
     e.target.reset();
   } else {
     showToast('Failed to submit application.', true);
@@ -1411,7 +1411,7 @@ document.getElementById('review-form').addEventListener('submit', async (e) => {
 
   if (result.isOk) {
     showToast('Thank you for your review!');
-    await sendToSheets(payload);
+    sendToSheets(payload); // no await — fires in background, instant response
     e.target.reset();
     selectedRating = 0;
     updateStarUI();
@@ -1474,11 +1474,3 @@ function handleScrollReveal() {
 document.addEventListener('DOMContentLoaded', () => {
   renderServices();
   lucide.createIcons();
-  handleScrollReveal();
-  const appEl = document.getElementById('app');
-  if (appEl) appEl.addEventListener('scroll', handleScrollReveal);
-  window.addEventListener('scroll', handleScrollReveal);
-});
-</script>
-</body>
-</html>
