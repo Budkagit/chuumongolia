@@ -1237,18 +1237,13 @@ function exportToExcel() {
 // STEP 1: Paste your Apps Script deployment URL here after deploying
 const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzhfxEmEaGC8kJqU5NcwwjPFNKILBC6NxQkJ9XLu0fyoa9L8Pm_m_dJS_Mu0kMwa1Ed/exec';
 
-async function sendToSheets(payload) {
-  if (SHEETS_WEBHOOK_URL.includes('YOUR_SCRIPT_ID')) return; // not configured yet
-  try {
-    await fetch(SHEETS_WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors', // required for Google Apps Script
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-  } catch (err) {
-    console.warn('Google Sheets sync failed:', err);
-  }
+function sendToSheets(payload) {
+  fetch(SHEETS_WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(payload),
+  }).catch(err => console.warn('Sheets sync failed:', err));
 }
 
 // ==================== FORM HANDLERS ====================
@@ -1469,7 +1464,6 @@ function handleScrollReveal() {
     }
   });
 }
-
 
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
