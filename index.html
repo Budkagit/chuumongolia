@@ -3,7 +3,8 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ch - 去 - Чүү</title>
+  <favicon src="logo.png"></favicon>
+  <title>Chuu - 去 - Чүү</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
@@ -23,7 +24,7 @@
     /* Custom scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0F1D3C; }
-    ::-webkit-scrollbar-thumb { background: #f5a623; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #F5A623; border-radius: 3px; }
 
     /* Animations */
     @keyframes fadeInUp {
@@ -53,7 +54,7 @@
 
     /* Gradient text */
     .gradient-text {
-      background: linear-gradient(135deg, #c4973b 0%, #f0d68a 50%, #c4973b 100%);
+      background: linear-gradient(135deg, #F5A623 0%, #f0d68a 50%, #F5A623 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -144,7 +145,7 @@
      <div class="flex items-center justify-between h-16"><a href="#hero" class="flex items-center gap-2">
        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center"><span class="text-midnight font-bold text-lg font-cjk">去</span>
        </div><span class="font-display text-gold-light text-lg font-bold tracking-wide">Chuu</span> </a> <!-- Desktop Nav -->
-      <div class="hidden md:flex items-center gap-6 text-sm"><a href="#about" class="nav-link text-sand hover:text-gold-light transition">About</a> <a href="#services" class="nav-link text-sand hover:text-gold-light transition">Services</a> <a href="#booking" class="nav-link text-sand hover:text-gold-light transition">Book</a> <a href="#reviews" class="nav-link text-sand hover:text-gold-light transition">Reviews</a> <a href="#contact" class="nav-link text-sand hover:text-gold-light transition">Contact</a> <a href="#membership" class="nav-link text-sand hover:text-gold-light transition">Join</a> <button onclick="openAdminModal()" class="text-slate hover:text-gold transition" title="Admin"> <i data-lucide="shield" style="width:18px;height:18px;"></i> </button>
+      <div class="hidden md:flex items-center gap-6 text-sm"><a href="#about" class="nav-link text-sand hover:text-gold-light transition">Бидний тухай</a> <a href="#services" class="nav-link text-sand hover:text-gold-light transition">Services</a> <a href="#booking" class="nav-link text-sand hover:text-gold-light transition">Захиалга</a> <a href="#reviews" class="nav-link text-sand hover:text-gold-light transition">Reviews</a> <a href="#contact" class="nav-link text-sand hover:text-gold-light transition">Холбогдох</a> <a href="#membership" class="nav-link text-sand hover:text-gold-light transition">Join</a> <button onclick="openAdminModal()" class="text-slate hover:text-gold transition" title="Admin"> <i data-lucide="shield" style="width:18px;height:18px;"></i> </button>
       </div><!-- Mobile menu btn --> <button id="mobile-menu-btn" class="md:hidden text-sand" onclick="toggleMobileMenu()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
      </div>
     </div><!-- Mobile menu -->
@@ -168,10 +169,10 @@
      <div class="animate-fade-in-up animate-delay-5 mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
       <div>
        <div class="text-2xl font-display font-bold text-gold-light">
-        5K+
+        1K+
        </div>
        <div class="text-xs text-sand/50 mt-1">
-        Travelers
+        Аялагчид
        </div>
       </div>
       <div>
@@ -179,7 +180,7 @@
         98%
        </div>
        <div class="text-xs text-sand/50 mt-1">
-        Satisfaction
+        Сэтгэл ханамж
        </div>
       </div>
       <div>
@@ -187,7 +188,7 @@
         24/7
        </div>
        <div class="text-xs text-sand/50 mt-1">
-        Support
+        Үйлчилгээ
        </div>
       </div>
      </div>
@@ -196,18 +197,19 @@
    <section id="about" class="py-24 px-4 relative">
     <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 0%, rgba(22,33,62,0.5) 50%, transparent 100%);"></div>
     <div class="relative max-w-6xl mx-auto section-reveal">
-     <div class="text-center mb-16"><span class="text-gold text-sm tracking-widest uppercase">Who We Are</span>
-      <h2 id="about-heading" class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">About Chuu</h2>
+     <div class="text-center mb-16"><span class="text-gold text-sm tracking-widest uppercase">Бидний тухай</span>
+      <h2 id="about-heading" class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Чүү</h2>
       <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
      </div>
      <div class="grid md:grid-cols-2 gap-12 items-center">
       <div>
-       <p id="about-text" class="text-sand/80 leading-relaxed text-lg mb-6">Chuu (去/Чүү) — meaning "go" across languages — was born from a simple vision: to make travel between China and Mongolia seamless, enjoyable, and meaningful. We are a bilingual, bicultural team dedicated to bridging these two fascinating nations.</p>
-       <p class="text-sand/60 leading-relaxed mb-8">From visa assistance to guided tours, from freight logistics to cultural immersion programs, we handle every detail so you can focus on the journey. Our deep roots in both Beijing and Ulaanbaatar give us unmatched local expertise.</p>
+       <p id="about-text" class="text-sand/80 leading-relaxed text-lg mb-6">Chuu (去/Чүү) — Хүссэн газар -луугаа давхиад өг！</p>
+       <p class="text-sand/60 leading-relaxed mb-8">Үйлчилгээний тухай бичнэ</p>
        <div class="grid grid-cols-2 gap-4">
         <div class="p-4 rounded-xl bg-navy/60 border border-gold/10">
          <div class="text-gold mb-2">
-          <i data-lucide="globe" style="width:24px;height:24px;"></i>
+          <i data-lucide="glob
+          e" style="width:24px;height:24px;"></i>
          </div>
          <h4 class="text-gold-light font-semibold text-sm">Bilingual</h4>
          <p class="text-sand/50 text-xs mt-1">Chinese, Mongolian &amp; English</p>
@@ -230,7 +232,7 @@
          <div class="text-gold mb-2">
           <i data-lucide="heart" style="width:24px;height:24px;"></i>
          </div>
-         <h4 class="text-gold-light font-semibold text-sm">Trusted</h4>
+         <h4 class="text-gold-light font-semibold text-sm">Үнэнч үйлчлэгч</h4>
          <p class="text-sand/50 text-xs mt-1">5000+ happy travelers</p>
         </div>
        </div>
@@ -257,7 +259,7 @@
            </div><span class="text-sand/50 text-xs">Mongolia</span>
           </div>
          </div>
-         <p class="text-sand/40 text-sm italic">"Where two worlds meet, journeys begin."</p>
+         <p class="text-sand/40 text-sm italic">"Хүссэн газар -луугаа давхиад өг"</p>
         </div>
        </div>
       </div>
@@ -276,55 +278,55 @@
    </section><!-- Booking Section -->
    <section id="booking" class="py-24 px-4">
     <div class="max-w-3xl mx-auto section-reveal">
-     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Reserve</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Book a Service</h2>
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Захиалга</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Үйлчилгээ Захиалах</h2>
       <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
      </div>
      <form id="booking-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 sm:p-8 space-y-5">
       <div class="grid sm:grid-cols-2 gap-5">
-       <div><label for="book-name" class="block text-sm text-gold-light mb-1.5 font-medium">Full Name *</label> <input id="book-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your name">
+       <div><label for="book-name" class="block text-sm text-gold-light mb-1.5 font-medium">Овог Нэр *</label> <input id="book-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your name">
        </div>
        <div><label for="book-email" class="block text-sm text-gold-light mb-1.5 font-medium">Email *</label> <input id="book-email" type="email" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="your@email.com">
        </div>
       </div>
       <div class="grid sm:grid-cols-2 gap-5">
-       <div><label for="book-phone" class="block text-sm text-gold-light mb-1.5 font-medium">Phone</label> <input id="book-phone" type="tel" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="+976 / +86">
+       <div><label for="book-phone" class="block text-sm text-gold-light mb-1.5 font-medium">Утас</label> <input id="book-phone" type="tel" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="+976 / +86">
        </div>
-       <div><label for="book-service" class="block text-sm text-gold-light mb-1.5 font-medium">Service *</label> <select id="book-service" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition"> <option value="">Select a service</option> <option value="visa">Visa Assistance — $80</option> <option value="flight">Flight Booking — $350+</option> <option value="tour-gobi">Gobi Desert Tour — $890</option> <option value="tour-wall">Great Wall Tour — $120</option> <option value="freight">Freight Shipping — $200+</option> <option value="interpreter">Interpreter — $50/hr</option> </select>
+       <div><label for="book-service" class="block text-sm text-gold-light mb-1.5 font-medium">Үйлчилгээ *</label> <select id="book-service" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition"> <option value="">Select a service</option> <option value="visa">Visa Assistance — $80</option> <option value="flight">Flight Booking — $350+</option> <option value="tour-gobi">Gobi Desert Tour — $890</option> <option value="tour-wall">Great Wall Tour — $120</option> <option value="freight">Freight Shipping — $200+</option> <option value="interpreter">Interpreter — $50/hr</option> </select>
        </div>
       </div>
       <div class="grid sm:grid-cols-2 gap-5">
-       <div><label for="book-date" class="block text-sm text-gold-light mb-1.5 font-medium">Preferred Date *</label> <input id="book-date" type="date" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition">
+       <div><label for="book-date" class="block text-sm text-gold-light mb-1.5 font-medium">Үйлчилгээ авах өдөр *</label> <input id="book-date" type="date" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition">
        </div>
-       <div><label for="book-passengers" class="block text-sm text-gold-light mb-1.5 font-medium">Passengers</label> <input id="book-passengers" type="number" min="1" max="50" value="1" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition">
+       <div><label for="book-passengers" class="block text-sm text-gold-light mb-1.5 font-medium">Үйлчлүүлэгчийн тоо</label> <input id="book-passengers" type="number" min="1" max="50" value="1" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition">
        </div>
       </div>
-      <div><label for="book-message" class="block text-sm text-gold-light mb-1.5 font-medium">Special Requests</label> <textarea id="book-message" rows="3" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Any special requirements or notes..."></textarea>
-      </div><button id="booking-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold text-lg hover:shadow-lg hover:shadow-gold/20 transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2"> <i data-lucide="calendar-check" style="width:20px;height:20px;"></i> <span>Confirm Booking</span> </button>
+      <div><label for="book-message" class="block text-sm text-gold-light mb-1.5 font-medium">Бусад</label> <textarea id="book-message" rows="3" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Any special requirements or notes..."></textarea>
+      </div><button id="booking-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold text-lg hover:shadow-lg hover:shadow-gold/20 transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2"> <i data-lucide="calendar-check" style="width:20px;height:20px;"></i> <span>Захиалга батлах</span> </button>
       <div id="booking-status" class="text-center text-sm hidden"></div>
      </form>
     </div>
    </section><!-- Reviews Section -->
    <section id="reviews" class="py-24 px-4 bg-navy/30">
     <div class="max-w-6xl mx-auto section-reveal">
-     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Feedback</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">User Reviews</h2>
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Санал хүсэлт</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Хэрэглэгчдийн Reviews</h2>
       <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
      </div><!-- Existing reviews -->
      <div id="reviews-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
       <p class="text-sand/40 text-center col-span-full italic">No reviews yet. Be the first!</p>
      </div><!-- Submit review -->
      <div class="max-w-xl mx-auto">
-      <h3 class="font-display text-xl text-gold-light mb-4 text-center">Share Your Experience</h3>
+      <h3 class="font-display text-xl text-gold-light mb-4 text-center">Өөрийн түүхээ хуваалцах</h3>
       <form id="review-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 space-y-4">
-       <div><label for="review-name" class="block text-sm text-gold-light mb-1.5 font-medium">Your Name *</label> <input id="review-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Name">
+       <div><label for="review-name" class="block text-sm text-gold-light mb-1.5 font-medium">Нэр *</label> <input id="review-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Name">
        </div>
-       <div><label class="block text-sm text-gold-light mb-1.5 font-medium">Rating *</label>
+       <div><label class="block text-sm text-gold-light mb-1.5 font-medium">Үнэлгээ *</label>
         <div id="star-rating" class="flex gap-1"><button type="button" class="star-btn star-inactive text-2xl" data-star="1">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="2">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="3">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="4">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="5">★</button>
         </div>
        </div>
-       <div><label for="review-text" class="block text-sm text-gold-light mb-1.5 font-medium">Your Review *</label> <textarea id="review-text" rows="3" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Tell us about your experience..."></textarea>
-       </div><button id="review-submit-btn" type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="send" style="width:18px;height:18px;"></i> <span>Submit Review</span> </button>
+       <div><label for="review-text" class="block text-sm text-gold-light mb-1.5 font-medium">Таны Үнэлгээ *</label> <textarea id="review-text" rows="3" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Tell us about your experience..."></textarea>
+       </div><button id="review-submit-btn" type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="send" style="width:18px;height:18px;"></i> <span>Илгээх</span> </button>
        <div id="review-status" class="text-center text-sm hidden"></div>
       </form>
      </div>
@@ -333,7 +335,7 @@
    <section id="contact" class="py-24 px-4">
     <div class="max-w-6xl mx-auto section-reveal">
      <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Reach Out</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Contact Us</h2>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Бидэнтэй Холбогдох</h2>
       <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
      </div>
      <div class="grid md:grid-cols-2 gap-8"><!-- Contact Info -->
@@ -344,8 +346,8 @@
          </div>
          <div>
           <h4 class="text-gold-light font-semibold mb-1">Offices</h4>
-          <p class="text-sand/60 text-sm">Ulaanbaatar, Mongolia<br>
-           Beijing, China</p>
+          <p class="text-sand/60 text-sm">Ulaanbaatar, Khuvsgul | Mongolia<br>
+           Shanghai, Chongqing, Hangzhou | China</p>
          </div>
         </div>
        </div>
@@ -355,7 +357,7 @@
          </div>
          <div>
           <h4 class="text-gold-light font-semibold mb-1">Email</h4>
-          <p id="contact-email-display" class="text-sand/60 text-sm">info@chuu-travel.com</p>
+          <p id="contact-email-display" class="text-sand/60 text-sm">info@chuu.com</p>
          </div>
         </div>
        </div>
@@ -383,12 +385,12 @@
        </div>
       </div><!-- Contact Form -->
       <form id="contact-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 sm:p-8 space-y-5">
-       <div><label for="contact-name" class="block text-sm text-gold-light mb-1.5 font-medium">Name *</label> <input id="contact-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your name">
+       <div><label for="contact-name" class="block text-sm text-gold-light mb-1.5 font-medium">Нэр *</label> <input id="contact-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your name">
        </div>
        <div><label for="contact-email" class="block text-sm text-gold-light mb-1.5 font-medium">Email *</label> <input id="contact-email" type="email" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="your@email.com">
        </div>
-       <div><label for="contact-message" class="block text-sm text-gold-light mb-1.5 font-medium">Message *</label> <textarea id="contact-message" rows="5" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="How can we help you?"></textarea>
-       </div><button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="send" style="width:18px;height:18px;"></i> <span>Send Message</span> </button>
+       <div><label for="contact-message" class="block text-sm text-gold-light mb-1.5 font-medium">Текст *</label> <textarea id="contact-message" rows="5" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="How can we help you?"></textarea>
+       </div><button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="send" style="width:18px;height:18px;"></i> <span>Илгээх</span> </button>
        <div id="contact-status" class="text-center text-sm hidden"></div>
       </form>
      </div>
@@ -396,10 +398,10 @@
    </section><!-- Membership Section -->
    <section id="membership" class="py-24 px-4 bg-navy/30">
     <div class="max-w-3xl mx-auto section-reveal">
-     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Join Our Network</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Become a Member</h2>
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Бидэнтэй нэгдэх</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Гишүүн болох</h2>
       <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
-      <p class="text-sand/60 mt-4 max-w-lg mx-auto">Get exclusive discounts, priority booking, and join our community of travelers between China and Mongolia.</p>
+      <p class="text-sand/60 mt-4 max-w-lg mx-auto"> ymar neg tailbar bichih</p>
      </div><!-- Benefits -->
      <div class="grid sm:grid-cols-3 gap-4 mb-10">
       <div class="bg-deep border border-gold/10 rounded-xl p-5 text-center">
@@ -454,7 +456,7 @@
       </div>
       <div class="flex items-center gap-6 text-sm text-sand/40"><a href="#about" class="hover:text-gold transition">About</a> <a href="#services" class="hover:text-gold transition">Services</a> <a href="#contact" class="hover:text-gold transition">Contact</a> <a href="#membership" class="hover:text-gold transition">Join</a>
       </div>
-      <p class="text-sand/30 text-xs">© 2024 Chuu Travel. All rights reserved.</p>
+      <p class="text-sand/30 text-xs">© 2026 Chuu Travel. All rights reserved.</p>
      </div>
     </div>
    </footer>
