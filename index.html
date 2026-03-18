@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuu - 去 - Чүү</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&amp;family=Playfair+Display:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    * { box-sizing: border-box; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-body { font-family: 'DM Sans', 'Noto Sans SC', sans-serif; }
+    .font-cjk { font-family: 'Noto Sans SC', sans-serif; }
+
+    /* Scroll behavior */
+    html { scroll-behavior: smooth; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #1a1a2e; }
+    ::-webkit-scrollbar-thumb { background: #c4973b; border-radius: 3px; }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(196, 151, 59, 0.15); }
+      50% { box-shadow: 0 0 40px rgba(196, 151, 59, 0.35); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+    .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .animate-delay-5 { animation-delay: 0.5s; opacity: 0; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #c4973b 0%, #f0d68a 50%, #c4973b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* Pattern overlay */
+    .pattern-overlay {
+      background-image: radial-gradient(circle at 1px 1px, rgba(196,151,59,0.07) 1px, transparent 0);
+      background-size: 40px 40px;
+    }
+
+    /* Section transitions */
+    .section-reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    .section-reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Card hover */
+    .service-card { transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .service-card:hover { transform: translateY(-6px); }
+
+    /* Star rating */
+    .star-btn { cursor: pointer; transition: all 0.2s; }
+    .star-btn:hover { transform: scale(1.2); }
+    .star-active { color: #c4973b; }
+    .star-inactive { color: #3a3a5c; }
+
+    /* Toast */
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; pointer-events: none; }
+    .toast { pointer-events: auto; padding: 14px 20px; border-radius: 10px; margin-bottom: 10px;
+      background: #16213e; border: 1px solid #c4973b; color: #f0d68a;
+      animation: fadeInUp 0.4s ease-out; font-family: 'DM Sans', sans-serif; }
+
+    /* Nav active */
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
+      background: #c4973b; transition: width 0.3s; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    /* Modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100;
+      display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .modal-content { background: #16213e; border: 1px solid rgba(196,151,59,0.3); border-radius: 16px;
+      max-width: 500px; width: 90%; max-height: 80%; overflow-y: auto; padding: 32px; }
+
+    /* Admin tab */
+    .admin-tab { padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+    .admin-tab.active { background: rgba(196,151,59,0.2); color: #f0d68a; }
+    .admin-tab:not(.active) { color: #8888aa; }
+    .admin-tab:hover:not(.active) { color: #c4973b; }
+
+    /* Loading spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(196,151,59,0.3);
+      border-top-color: #c4973b; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
+
+    /* Inline confirm */
+    .confirm-overlay { position: absolute; inset: 0; background: rgba(22,33,62,0.95);
+      display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: inherit; z-index: 5; }
+
+    /* Mongolian pattern border */
+    .mn-border { border-image: repeating-linear-gradient(90deg, #c4973b 0px, #c4973b 8px, transparent 8px, transparent 12px) 4; }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#0f0f23',
+            navy: '#16213e',
+            deep: '#1a1a2e',
+            gold: '#c4973b',
+            'gold-light': '#f0d68a',
+            'gold-dark': '#8b6914',
+            sand: '#e8d5b7',
+            slate: '#8888aa',
+          }
+        }
+      }
+    }
+  </script>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full font-body bg-midnight text-sand">
+  <div id="app" class="w-full h-full overflow-auto"><!-- Toast Container -->
+   <div id="toast-container" class="toast-container"></div><!-- Navigation -->
+   <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background: rgba(15,15,35,0.85); backdrop-filter: blur(12px);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex items-center justify-between h-16"><a href="#hero" class="flex items-center gap-2">
+       <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center"><span class="text-midnight font-bold text-lg font-cjk">去</span>
+       </div><span class="font-display text-gold-light text-lg font-bold tracking-wide">Chuu</span> </a> <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-6 text-sm"><a href="#about" class="nav-link text-sand hover:text-gold-light transition">About</a> <a href="#services" class="nav-link text-sand hover:text-gold-light transition">Services</a> <a href="#booking" class="nav-link text-sand hover:text-gold-light transition">Book</a> <a href="#reviews" class="nav-link text-sand hover:text-gold-light transition">Reviews</a> <a href="#contact" class="nav-link text-sand hover:text-gold-light transition">Contact</a> <a href="#membership" class="nav-link text-sand hover:text-gold-light transition">Join</a> <button onclick="openAdminModal()" class="text-slate hover:text-gold transition" title="Admin"> <i data-lucide="shield" style="width:18px;height:18px;"></i> </button>
+      </div><!-- Mobile menu btn --> <button id="mobile-menu-btn" class="md:hidden text-sand" onclick="toggleMobileMenu()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+     </div>
+    </div><!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-navy border-t border-gold/10 px-4 pb-4"><a href="#about" class="block py-2 text-sand hover:text-gold-light" onclick="closeMobileMenu()">About</a> <a href="#services" class="block py-2 text-sand hover:text-gold-light" onclick="closeMobileMenu()">Services</a> <a href="#booking" class="block py-2 text-sand hover:text-gold-light" onclick="closeMobileMenu()">Book Now</a> <a href="#reviews" class="block py-2 text-sand hover:text-gold-light" onclick="closeMobileMenu()">Reviews</a> <a href="#contact" class="block py-2 text-sand hover:text-gold-light" onclick="closeMobileMenu()">Contact</a> <a href="#membership" class="block py-2 text-sand hover:text-gold-light" onclick="closeMobileMenu()">Join Us</a> <button onclick="openAdminModal(); closeMobileMenu();" class="block py-2 text-slate hover:text-gold">Admin Panel</button>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="hero" class="relative min-h-full flex items-center justify-center pattern-overlay">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 30%, rgba(196,151,59,0.08) 0%, transparent 60%);"></div><!-- Decorative elements -->
+    <div class="absolute top-20 left-10 w-16 h-16 border border-gold/10 rounded-full animate-float" style="animation-delay:0s;"></div>
+    <div class="absolute bottom-32 right-16 w-10 h-10 border border-gold/10 rounded-full animate-float" style="animation-delay:1.5s;"></div>
+    <div class="absolute top-40 right-20 w-2 h-2 bg-gold/30 rounded-full animate-float" style="animation-delay:0.8s;"></div>
+    <div class="relative text-center px-4 max-w-4xl mx-auto">
+     <div class="animate-fade-in-up animate-delay-1">
+      <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-gold/20 bg-gold/5 mb-8"><span class="text-gold text-sm font-medium">🇨🇳 China</span> <span class="text-gold/40">━━━</span> <span class="font-cjk text-gold-light font-bold">去</span> <span class="text-gold/40">━━━</span> <span class="text-gold text-sm font-medium">Mongolia 🇲🇳</span>
+      </div>
+     </div>
+     <h1 id="hero-title" class="animate-fade-in-up animate-delay-2 font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-4"><span class="gradient-text">Chuu - 去 - Чүү</span></h1>
+     <p id="hero-subtitle" class="animate-fade-in-up animate-delay-3 text-lg sm:text-xl text-sand/70 max-w-2xl mx-auto mb-10 leading-relaxed">Your trusted bridge between China and Mongolia. Premium travel, logistics, and cultural exchange services.</p>
+     <div class="animate-fade-in-up animate-delay-4 flex flex-wrap justify-center gap-4"><a href="#booking" class="px-8 py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-semibold hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 transform hover:scale-105"> Book Now </a> <a href="#about" class="px-8 py-3 rounded-xl border border-gold/30 text-gold-light hover:bg-gold/10 transition-all duration-300"> Learn More </a>
+     </div><!-- Stats -->
+     <div class="animate-fade-in-up animate-delay-5 mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+      <div>
+       <div class="text-2xl font-display font-bold text-gold-light">
+        5K+
+       </div>
+       <div class="text-xs text-sand/50 mt-1">
+        Travelers
+       </div>
+      </div>
+      <div>
+       <div class="text-2xl font-display font-bold text-gold-light">
+        98%
+       </div>
+       <div class="text-xs text-sand/50 mt-1">
+        Satisfaction
+       </div>
+      </div>
+      <div>
+       <div class="text-2xl font-display font-bold text-gold-light">
+        24/7
+       </div>
+       <div class="text-xs text-sand/50 mt-1">
+        Support
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="py-24 px-4 relative">
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 0%, rgba(22,33,62,0.5) 50%, transparent 100%);"></div>
+    <div class="relative max-w-6xl mx-auto section-reveal">
+     <div class="text-center mb-16"><span class="text-gold text-sm tracking-widest uppercase">Who We Are</span>
+      <h2 id="about-heading" class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">About Chuu</h2>
+      <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+       <p id="about-text" class="text-sand/80 leading-relaxed text-lg mb-6">Chuu (去/Чүү) — meaning "go" across languages — was born from a simple vision: to make travel between China and Mongolia seamless, enjoyable, and meaningful. We are a bilingual, bicultural team dedicated to bridging these two fascinating nations.</p>
+       <p class="text-sand/60 leading-relaxed mb-8">From visa assistance to guided tours, from freight logistics to cultural immersion programs, we handle every detail so you can focus on the journey. Our deep roots in both Beijing and Ulaanbaatar give us unmatched local expertise.</p>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl bg-navy/60 border border-gold/10">
+         <div class="text-gold mb-2">
+          <i data-lucide="globe" style="width:24px;height:24px;"></i>
+         </div>
+         <h4 class="text-gold-light font-semibold text-sm">Bilingual</h4>
+         <p class="text-sand/50 text-xs mt-1">Chinese, Mongolian &amp; English</p>
+        </div>
+        <div class="p-4 rounded-xl bg-navy/60 border border-gold/10">
+         <div class="text-gold mb-2">
+          <i data-lucide="shield-check" style="width:24px;height:24px;"></i>
+         </div>
+         <h4 class="text-gold-light font-semibold text-sm">Licensed</h4>
+         <p class="text-sand/50 text-xs mt-1">Fully registered &amp; insured</p>
+        </div>
+        <div class="p-4 rounded-xl bg-navy/60 border border-gold/10">
+         <div class="text-gold mb-2">
+          <i data-lucide="users" style="width:24px;height:24px;"></i>
+         </div>
+         <h4 class="text-gold-light font-semibold text-sm">Local Team</h4>
+         <p class="text-sand/50 text-xs mt-1">Experts in both countries</p>
+        </div>
+        <div class="p-4 rounded-xl bg-navy/60 border border-gold/10">
+         <div class="text-gold mb-2">
+          <i data-lucide="heart" style="width:24px;height:24px;"></i>
+         </div>
+         <h4 class="text-gold-light font-semibold text-sm">Trusted</h4>
+         <p class="text-sand/50 text-xs mt-1">5000+ happy travelers</p>
+        </div>
+       </div>
+      </div><!-- Visual element -->
+      <div class="relative">
+       <div class="rounded-2xl overflow-hidden bg-gradient-to-br from-navy to-deep border border-gold/10 p-8 animate-glow">
+        <div class="text-center">
+         <div class="text-8xl font-cjk text-gold/20 font-bold mb-4">
+          去
+         </div>
+         <div class="flex items-center justify-center gap-6 mb-6">
+          <div class="text-center">
+           <div class="w-16 h-16 rounded-full bg-red-900/30 border border-red-700/30 flex items-center justify-center text-2xl mb-2">
+            🇨🇳
+           </div><span class="text-sand/50 text-xs">China</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+           <div class="w-24 h-px bg-gradient-to-r from-red-700/30 via-gold to-blue-700/30"></div><i data-lucide="plane" style="width:20px;height:20px;" class="text-gold"></i>
+           <div class="w-24 h-px bg-gradient-to-r from-blue-700/30 via-gold to-red-700/30"></div>
+          </div>
+          <div class="text-center">
+           <div class="w-16 h-16 rounded-full bg-blue-900/30 border border-blue-700/30 flex items-center justify-center text-2xl mb-2">
+            🇲🇳
+           </div><span class="text-sand/50 text-xs">Mongolia</span>
+          </div>
+         </div>
+         <p class="text-sand/40 text-sm italic">"Where two worlds meet, journeys begin."</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Services Section -->
+   <section id="services" class="py-24 px-4 bg-navy/30">
+    <div class="max-w-6xl mx-auto section-reveal">
+     <div class="text-center mb-16"><span class="text-gold text-sm tracking-widest uppercase">What We Offer</span>
+      <h2 id="services-heading" class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Our Services</h2>
+      <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="services-grid"><!-- Service cards rendered by JS -->
+     </div>
+    </div>
+   </section><!-- Booking Section -->
+   <section id="booking" class="py-24 px-4">
+    <div class="max-w-3xl mx-auto section-reveal">
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Reserve</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Book a Service</h2>
+      <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+     </div>
+     <form id="booking-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 sm:p-8 space-y-5">
+      <div class="grid sm:grid-cols-2 gap-5">
+       <div><label for="book-name" class="block text-sm text-gold-light mb-1.5 font-medium">Full Name *</label> <input id="book-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your name">
+       </div>
+       <div><label for="book-email" class="block text-sm text-gold-light mb-1.5 font-medium">Email *</label> <input id="book-email" type="email" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="your@email.com">
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+       <div><label for="book-phone" class="block text-sm text-gold-light mb-1.5 font-medium">Phone</label> <input id="book-phone" type="tel" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="+976 / +86">
+       </div>
+       <div><label for="book-service" class="block text-sm text-gold-light mb-1.5 font-medium">Service *</label> <select id="book-service" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition"> <option value="">Select a service</option> <option value="visa">Visa Assistance — $80</option> <option value="flight">Flight Booking — $350+</option> <option value="tour-gobi">Gobi Desert Tour — $890</option> <option value="tour-wall">Great Wall Tour — $120</option> <option value="freight">Freight Shipping — $200+</option> <option value="interpreter">Interpreter — $50/hr</option> </select>
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+       <div><label for="book-date" class="block text-sm text-gold-light mb-1.5 font-medium">Preferred Date *</label> <input id="book-date" type="date" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition">
+       </div>
+       <div><label for="book-passengers" class="block text-sm text-gold-light mb-1.5 font-medium">Passengers</label> <input id="book-passengers" type="number" min="1" max="50" value="1" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition">
+       </div>
+      </div>
+      <div><label for="book-message" class="block text-sm text-gold-light mb-1.5 font-medium">Special Requests</label> <textarea id="book-message" rows="3" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Any special requirements or notes..."></textarea>
+      </div><button id="booking-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold text-lg hover:shadow-lg hover:shadow-gold/20 transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2"> <i data-lucide="calendar-check" style="width:20px;height:20px;"></i> <span>Confirm Booking</span> </button>
+      <div id="booking-status" class="text-center text-sm hidden"></div>
+     </form>
+    </div>
+   </section><!-- Reviews Section -->
+   <section id="reviews" class="py-24 px-4 bg-navy/30">
+    <div class="max-w-6xl mx-auto section-reveal">
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Feedback</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">User Reviews</h2>
+      <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+     </div><!-- Existing reviews -->
+     <div id="reviews-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <p class="text-sand/40 text-center col-span-full italic">No reviews yet. Be the first!</p>
+     </div><!-- Submit review -->
+     <div class="max-w-xl mx-auto">
+      <h3 class="font-display text-xl text-gold-light mb-4 text-center">Share Your Experience</h3>
+      <form id="review-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 space-y-4">
+       <div><label for="review-name" class="block text-sm text-gold-light mb-1.5 font-medium">Your Name *</label> <input id="review-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Name">
+       </div>
+       <div><label class="block text-sm text-gold-light mb-1.5 font-medium">Rating *</label>
+        <div id="star-rating" class="flex gap-1"><button type="button" class="star-btn star-inactive text-2xl" data-star="1">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="2">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="3">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="4">★</button> <button type="button" class="star-btn star-inactive text-2xl" data-star="5">★</button>
+        </div>
+       </div>
+       <div><label for="review-text" class="block text-sm text-gold-light mb-1.5 font-medium">Your Review *</label> <textarea id="review-text" rows="3" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Tell us about your experience..."></textarea>
+       </div><button id="review-submit-btn" type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="send" style="width:18px;height:18px;"></i> <span>Submit Review</span> </button>
+       <div id="review-status" class="text-center text-sm hidden"></div>
+      </form>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-24 px-4">
+    <div class="max-w-6xl mx-auto section-reveal">
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Reach Out</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Contact Us</h2>
+      <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8"><!-- Contact Info -->
+      <div class="space-y-6">
+       <div class="bg-navy/50 border border-gold/10 rounded-2xl p-6">
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0"><i data-lucide="map-pin" style="width:20px;height:20px;"></i>
+         </div>
+         <div>
+          <h4 class="text-gold-light font-semibold mb-1">Offices</h4>
+          <p class="text-sand/60 text-sm">Ulaanbaatar, Mongolia<br>
+           Beijing, China</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-navy/50 border border-gold/10 rounded-2xl p-6">
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0"><i data-lucide="mail" style="width:20px;height:20px;"></i>
+         </div>
+         <div>
+          <h4 class="text-gold-light font-semibold mb-1">Email</h4>
+          <p id="contact-email-display" class="text-sand/60 text-sm">info@chuu-travel.com</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-navy/50 border border-gold/10 rounded-2xl p-6">
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0"><i data-lucide="phone" style="width:20px;height:20px;"></i>
+         </div>
+         <div>
+          <h4 class="text-gold-light font-semibold mb-1">Phone</h4>
+          <p id="contact-phone-display" class="text-sand/60 text-sm">+976 9911 2233<br>
+           +86 138 0013 8000</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-navy/50 border border-gold/10 rounded-2xl p-6">
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0"><i data-lucide="clock" style="width:20px;height:20px;"></i>
+         </div>
+         <div>
+          <h4 class="text-gold-light font-semibold mb-1">Hours</h4>
+          <p class="text-sand/60 text-sm">Mon–Sat: 9:00 – 18:00 (UTC+8)<br>
+           Emergency: 24/7</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Contact Form -->
+      <form id="contact-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 sm:p-8 space-y-5">
+       <div><label for="contact-name" class="block text-sm text-gold-light mb-1.5 font-medium">Name *</label> <input id="contact-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your name">
+       </div>
+       <div><label for="contact-email" class="block text-sm text-gold-light mb-1.5 font-medium">Email *</label> <input id="contact-email" type="email" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="your@email.com">
+       </div>
+       <div><label for="contact-message" class="block text-sm text-gold-light mb-1.5 font-medium">Message *</label> <textarea id="contact-message" rows="5" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="How can we help you?"></textarea>
+       </div><button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="send" style="width:18px;height:18px;"></i> <span>Send Message</span> </button>
+       <div id="contact-status" class="text-center text-sm hidden"></div>
+      </form>
+     </div>
+    </div>
+   </section><!-- Membership Section -->
+   <section id="membership" class="py-24 px-4 bg-navy/30">
+    <div class="max-w-3xl mx-auto section-reveal">
+     <div class="text-center mb-12"><span class="text-gold text-sm tracking-widest uppercase">Join Our Network</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-gold-light mt-3">Become a Member</h2>
+      <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+      <p class="text-sand/60 mt-4 max-w-lg mx-auto">Get exclusive discounts, priority booking, and join our community of travelers between China and Mongolia.</p>
+     </div><!-- Benefits -->
+     <div class="grid sm:grid-cols-3 gap-4 mb-10">
+      <div class="bg-deep border border-gold/10 rounded-xl p-5 text-center">
+       <div class="text-gold text-2xl mb-2">
+        💎
+       </div>
+       <h4 class="text-gold-light font-semibold text-sm">VIP Access</h4>
+       <p class="text-sand/50 text-xs mt-1">Priority booking &amp; support</p>
+      </div>
+      <div class="bg-deep border border-gold/10 rounded-xl p-5 text-center">
+       <div class="text-gold text-2xl mb-2">
+        🏷️
+       </div>
+       <h4 class="text-gold-light font-semibold text-sm">15% Off</h4>
+       <p class="text-sand/50 text-xs mt-1">On all services</p>
+      </div>
+      <div class="bg-deep border border-gold/10 rounded-xl p-5 text-center">
+       <div class="text-gold text-2xl mb-2">
+        🌐
+       </div>
+       <h4 class="text-gold-light font-semibold text-sm">Network</h4>
+       <p class="text-sand/50 text-xs mt-1">Connect with fellow travelers</p>
+      </div>
+     </div><!-- Membership Form -->
+     <form id="membership-form" class="bg-navy/50 border border-gold/10 rounded-2xl p-6 sm:p-8 space-y-5">
+      <div class="grid sm:grid-cols-2 gap-5">
+       <div><label for="mem-name" class="block text-sm text-gold-light mb-1.5 font-medium">Full Name *</label> <input id="mem-name" type="text" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="Your full name">
+       </div>
+       <div><label for="mem-email" class="block text-sm text-gold-light mb-1.5 font-medium">Email *</label> <input id="mem-email" type="email" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="your@email.com">
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+       <div><label for="mem-phone" class="block text-sm text-gold-light mb-1.5 font-medium">Phone *</label> <input id="mem-phone" type="tel" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30" placeholder="+976 / +86">
+       </div>
+       <div><label for="mem-nationality" class="block text-sm text-gold-light mb-1.5 font-medium">Nationality</label> <select id="mem-nationality" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition"> <option value="mongolian">Mongolian</option> <option value="chinese">Chinese</option> <option value="other">Other</option> </select>
+       </div>
+      </div>
+      <div><label for="mem-purpose" class="block text-sm text-gold-light mb-1.5 font-medium">Purpose of Membership *</label> <select id="mem-purpose" required class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition"> <option value="">Select purpose</option> <option value="travel">Regular Travel</option> <option value="business">Business</option> <option value="study">Study Abroad</option> <option value="cultural">Cultural Exchange</option> <option value="other">Other</option> </select>
+      </div>
+      <div><label for="mem-message" class="block text-sm text-gold-light mb-1.5 font-medium">Tell Us About Yourself</label> <textarea id="mem-message" rows="3" class="w-full bg-deep border border-gold/15 rounded-xl px-4 py-3 text-sand focus:outline-none focus:border-gold/50 transition placeholder-sand/30 resize-none" placeholder="Brief introduction..."></textarea>
+      </div><button id="membership-submit-btn" type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-midnight font-bold text-lg hover:shadow-lg hover:shadow-gold/20 transition-all flex items-center justify-center gap-2"> <i data-lucide="user-plus" style="width:20px;height:20px;"></i> <span>Apply for Membership</span> </button>
+      <div id="membership-status" class="text-center text-sm hidden"></div>
+     </form>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-12 px-4 border-t border-gold/10">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+       <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center"><span class="text-midnight font-bold font-cjk text-sm">去</span>
+       </div><span class="font-display text-gold-light font-bold">Chuu - 去 - Чүү</span>
+      </div>
+      <div class="flex items-center gap-6 text-sm text-sand/40"><a href="#about" class="hover:text-gold transition">About</a> <a href="#services" class="hover:text-gold transition">Services</a> <a href="#contact" class="hover:text-gold transition">Contact</a> <a href="#membership" class="hover:text-gold transition">Join</a>
+      </div>
+      <p class="text-sand/30 text-xs">© 2024 Chuu Travel. All rights reserved.</p>
+     </div>
+    </div>
+   </footer>
+  </div><!-- end #app --> <!-- Admin Modal (hidden) -->
+  <div id="admin-modal" class="hidden">
+   <div class="modal-backdrop" onclick="closeAdminOnBackdrop(event)">
+    <div class="modal-content" style="max-width:700px; max-height:85%;" onclick="event.stopPropagation()">
+     <div class="flex items-center justify-between mb-6">
+      <h2 class="font-display text-2xl text-gold-light font-bold">Admin Panel</h2><button onclick="closeAdminModal()" class="text-sand/50 hover:text-gold transition"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+     </div><!-- Admin Tabs -->
+     <div class="flex gap-2 mb-6 flex-wrap"><button class="admin-tab active" data-admin-tab="orders" onclick="switchAdminTab('orders')"> Orders <span id="admin-orders-count" class="ml-1 text-xs">(0)</span> </button> <button class="admin-tab" data-admin-tab="members" onclick="switchAdminTab('members')"> Members <span id="admin-members-count" class="ml-1 text-xs">(0)</span> </button> <button class="admin-tab" data-admin-tab="contacts" onclick="switchAdminTab('contacts')"> Messages <span id="admin-contacts-count" class="ml-1 text-xs">(0)</span> </button> <button class="admin-tab" data-admin-tab="reviews" onclick="switchAdminTab('reviews')"> Reviews <span id="admin-reviews-count" class="ml-1 text-xs">(0)</span> </button>
+     </div><!-- Admin Content -->
+     <div id="admin-content" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+      <p class="text-sand/40 text-center italic py-8">No data yet.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+// ==================== CONFIG & STATE ====================
+const defaultConfig = {
+  // Colors (5 max)
+  background_color: '#0f0f23',
+  surface_color: '#16213e',
+  text_color: '#e8d5b7',
+  primary_action_color: '#c4973b',
+  secondary_action_color: '#8888aa',
+  // Font
+  font_family: 'DM Sans',
+  font_size: 16,
+  // Editable text
+  hero_title: 'Chuu - 去 - Чүү',
+  hero_subtitle: 'Your trusted bridge between China and Mongolia. Premium travel, logistics, and cultural exchange services.',
+  about_heading: 'About Chuu',
+  about_text: 'Chuu (去/Чүү) — meaning "go" across languages — was born from a simple vision: to make travel between China and Mongolia seamless, enjoyable, and meaningful. We are a bilingual, bicultural team dedicated to bridging these two fascinating nations.',
+  services_heading: 'Our Services',
+  contact_email_value: 'info@chuu-travel.com',
+  contact_phone_value: '+976 9911 2233',
+};
+
+let allData = [];
+let currentAdminTab = 'orders';
+let selectedRating = 0;
+
+// ==================== SERVICES DATA ====================
+const SERVICES = [
+  { icon: 'file-text', title: 'Visa Assistance', desc: 'Chinese & Mongolian visa processing, document preparation, and embassy liaison.', price: '$80', tag: 'Popular' },
+  { icon: 'plane', title: 'Flight Booking', desc: 'Best deals on direct flights between Beijing, Hohhot, and Ulaanbaatar.', price: 'From $350', tag: '' },
+  { icon: 'mountain', title: 'Gobi Desert Tour', desc: '5-day immersive Gobi Desert experience with nomadic families and camel treks.', price: '$890', tag: 'Premium' },
+  { icon: 'landmark', title: 'Great Wall Tour', desc: 'Day trip to the Great Wall with private guide and transportation included.', price: '$120', tag: '' },
+  { icon: 'truck', title: 'Freight & Logistics', desc: 'Cargo shipping between China and Mongolia. Door-to-door service available.', price: 'From $200', tag: '' },
+  { icon: 'languages', title: 'Interpreter Service', desc: 'Professional interpreters for business meetings, tours, and official appointments.', price: '$50/hr', tag: '' },
+];
+
+// ==================== ELEMENT SDK ====================
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+
+  // Update text content
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) heroTitle.innerHTML = `<span class="gradient-text">${c.hero_title}</span>`;
+
+  const heroSub = document.getElementById('hero-subtitle');
+  if (heroSub) heroSub.textContent = c.hero_subtitle;
+
+  const aboutH = document.getElementById('about-heading');
+  if (aboutH) aboutH.textContent = c.about_heading;
+
+  const aboutT = document.getElementById('about-text');
+  if (aboutT) aboutT.textContent = c.about_text;
+
+  const servH = document.getElementById('services-heading');
+  if (servH) servH.textContent = c.services_heading;
+
+  const contactEmail = document.getElementById('contact-email-display');
+  if (contactEmail) contactEmail.textContent = c.contact_email_value;
+
+  const contactPhone = document.getElementById('contact-phone-display');
+  if (contactPhone) contactPhone.textContent = c.contact_phone_value;
+
+  // Apply colors via CSS variables on body
+  const app = document.getElementById('app');
+  if (app) {
+    app.style.backgroundColor = c.background_color;
+    app.style.color = c.text_color;
+  }
+
+  // Apply font
+  const customFont = c.font_family || defaultConfig.font_family;
+  const baseFontStack = "'Noto Sans SC', sans-serif";
+  document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+  // Font size scaling
+  const baseSize = c.font_size || defaultConfig.font_size;
+  document.querySelectorAll('.font-display').forEach(el => {
+    // Don't override specific heading sizes set by Tailwind
+  });
+  document.body.style.fontSize = `${baseSize}px`;
+
+  // Apply primary action color to gold elements
+  document.querySelectorAll('.bg-gradient-to-r.from-gold').forEach(btn => {
+    btn.style.background = `linear-gradient(to right, ${c.primary_action_color}, ${darkenColor(c.primary_action_color, 0.2)})`;
+  });
+
+  // Surface color on cards
+  document.querySelectorAll('.bg-navy\\/50, .bg-navy\\/60').forEach(el => {
+    el.style.backgroundColor = hexToRgba(c.surface_color, 0.5);
+  });
+}
+
+function darkenColor(hex, amount) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  const r = Math.max(0, (num >> 16) - Math.round(255 * amount));
+  const g = Math.max(0, ((num >> 8) & 0x00FF) - Math.round(255 * amount));
+  const b = Math.max(0, (num & 0x0000FF) - Math.round(255 * amount));
+  return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+}
+
+function hexToRgba(hex, alpha) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  return `rgba(${num >> 16}, ${(num >> 8) & 0xFF}, ${num & 0xFF}, ${alpha})`;
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => { applyConfig(config); },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+      ],
+      borderables: [],
+      fontEditable: {
+        get: () => config.font_family || defaultConfig.font_family,
+        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+      },
+      fontSizeable: {
+        get: () => config.font_size || defaultConfig.font_size,
+        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+      },
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['hero_title', config.hero_title || defaultConfig.hero_title],
+      ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+      ['about_heading', config.about_heading || defaultConfig.about_heading],
+      ['about_text', config.about_text || defaultConfig.about_text],
+      ['services_heading', config.services_heading || defaultConfig.services_heading],
+      ['contact_email_value', config.contact_email_value || defaultConfig.contact_email_value],
+      ['contact_phone_value', config.contact_phone_value || defaultConfig.contact_phone_value],
+    ]),
+  });
+}
+
+// ==================== DATA SDK ====================
+const dataHandler = {
+  onDataChanged(data) {
+    allData = data;
+    renderReviews();
+    updateAdminCounts();
+    if (document.getElementById('admin-modal') && !document.getElementById('admin-modal').classList.contains('hidden')) {
+      renderAdminContent();
+    }
+  }
+};
+
+(async () => {
+  if (window.dataSdk) {
+    const result = await window.dataSdk.init(dataHandler);
+    if (!result.isOk) {
+      console.error('Data SDK init failed');
+    }
+  }
+})();
+
+// ==================== RENDER SERVICES ====================
+function renderServices() {
+  const grid = document.getElementById('services-grid');
+  if (!grid) return;
+  grid.innerHTML = SERVICES.map((s, i) => `
+    <div class="service-card bg-navy/50 border border-gold/10 rounded-2xl p-6 relative overflow-hidden animate-fade-in-up animate-delay-${i+1}">
+      ${s.tag ? `<div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-gold/15 text-gold text-xs font-semibold">${s.tag}</div>` : ''}
+      <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+        <i data-lucide="${s.icon}" style="width:24px;height:24px;"></i>
+      </div>
+      <h3 class="font-display text-xl text-gold-light font-bold mb-2">${s.title}</h3>
+      <p class="text-sand/60 text-sm leading-relaxed mb-4">${s.desc}</p>
+      <div class="flex items-center justify-between">
+        <span class="text-gold font-bold text-lg">${s.price}</span>
+        <a href="#booking" class="text-sm text-gold/70 hover:text-gold transition flex items-center gap-1">
+          Book <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+        </a>
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+// ==================== RENDER REVIEWS ====================
+function renderReviews() {
+  const list = document.getElementById('reviews-list');
+  if (!list) return;
+  const reviews = allData.filter(d => d.type === 'review');
+  if (reviews.length === 0) {
+    list.innerHTML = '<p class="text-sand/40 text-center col-span-full italic py-4">No reviews yet. Be the first!</p>';
+    return;
+  }
+  // Build map of existing elements
+  const existing = new Map([...list.children].map(el => [el.dataset.id, el]));
+  const newIds = new Set(reviews.map(r => r.__backendId));
+
+  // Remove deleted
+  existing.forEach((el, id) => { if (!newIds.has(id)) el.remove(); });
+
+  reviews.forEach(r => {
+    const id = r.__backendId;
+    if (existing.has(id)) {
+      // Update in place
+      const el = existing.get(id);
+      el.querySelector('.review-stars').innerHTML = '★'.repeat(r.rating || 0) + '<span class="star-inactive">' + '★'.repeat(5 - (r.rating || 0)) + '</span>';
+      el.querySelector('.review-body').textContent = r.review_text || '';
+      el.querySelector('.review-author').textContent = `— ${r.name}`;
+    } else {
+      const div = document.createElement('div');
+      div.dataset.id = id;
+      div.className = 'bg-navy/50 border border-gold/10 rounded-xl p-5 animate-fade-in-up';
+      div.innerHTML = `
+        <div class="review-stars text-gold mb-2">${'★'.repeat(r.rating || 0)}<span class="star-inactive">${'★'.repeat(5 - (r.rating || 0))}</span></div>
+        <p class="review-body text-sand/70 text-sm leading-relaxed mb-3">${r.review_text || ''}</p>
+        <p class="review-author text-gold-light text-xs font-semibold">— ${r.name}</p>
+      `;
+      list.appendChild(div);
+    }
+  });
+}
+
+// ==================== ADMIN ====================
+function updateAdminCounts() {
+  const orders = allData.filter(d => d.type === 'booking');
+  const members = allData.filter(d => d.type === 'membership');
+  const contacts = allData.filter(d => d.type === 'contact');
+  const reviews = allData.filter(d => d.type === 'review');
+  const oc = document.getElementById('admin-orders-count');
+  if (oc) oc.textContent = `(${orders.length})`;
+  const mc = document.getElementById('admin-members-count');
+  if (mc) mc.textContent = `(${members.length})`;
+  const cc = document.getElementById('admin-contacts-count');
+  if (cc) cc.textContent = `(${contacts.length})`;
+  const rc = document.getElementById('admin-reviews-count');
+  if (rc) rc.textContent = `(${reviews.length})`;
+}
+
+function openAdminModal() {
+  const modal = document.getElementById('admin-modal');
+  modal.classList.remove('hidden');
+  renderAdminContent();
+  lucide.createIcons();
+}
+function closeAdminModal() {
+  document.getElementById('admin-modal').classList.add('hidden');
+}
+function closeAdminOnBackdrop(e) {
+  if (e.target === e.currentTarget) closeAdminModal();
+}
+
+function switchAdminTab(tab) {
+  currentAdminTab = tab;
+  document.querySelectorAll('.admin-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.adminTab === tab);
+  });
+  renderAdminContent();
+}
+
+function renderAdminContent() {
+  const container = document.getElementById('admin-content');
+  if (!container) return;
+
+  let items = [];
+  if (currentAdminTab === 'orders') items = allData.filter(d => d.type === 'booking');
+  else if (currentAdminTab === 'members') items = allData.filter(d => d.type === 'membership');
+  else if (currentAdminTab === 'contacts') items = allData.filter(d => d.type === 'contact');
+  else if (currentAdminTab === 'reviews') items = allData.filter(d => d.type === 'review');
+
+  if (items.length === 0) {
+    container.innerHTML = '<p class="text-sand/40 text-center italic py-8">No entries yet.</p>';
+    return;
+  }
+
+  container.innerHTML = items.map(item => {
+    const statusColor = item.status === 'approved' ? 'text-green-400' : item.status === 'rejected' ? 'text-red-400' : 'text-gold';
+    let details = '';
+    if (item.type === 'booking') {
+      details = `<span class="text-gold text-xs">${item.service || ''}</span> · ${item.date || ''} · ${item.passengers || 1} pax`;
+    } else if (item.type === 'membership') {
+      details = `${item.nationality || ''} · ${item.purpose || ''}`;
+    } else if (item.type === 'contact') {
+      details = item.message ? (item.message.length > 80 ? item.message.substring(0, 80) + '...' : item.message) : '';
+    } else if (item.type === 'review') {
+      details = `${'★'.repeat(item.rating || 0)} · ${item.review_text ? (item.review_text.length > 60 ? item.review_text.substring(0, 60) + '...' : item.review_text) : ''}`;
+    }
+
+    return `
+      <div class="bg-deep border border-gold/10 rounded-xl p-4 relative" data-admin-id="${item.__backendId}">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-gold-light font-semibold text-sm">${item.name || 'Unknown'}</span>
+              <span class="${statusColor} text-xs capitalize">${item.status || 'pending'}</span>
+            </div>
+            <p class="text-sand/50 text-xs">${item.email || ''} ${item.phone ? '· ' + item.phone : ''}</p>
+            <p class="text-sand/40 text-xs mt-1">${details}</p>
+            <p class="text-sand/30 text-xs mt-1">${item.created_at ? new Date(item.created_at).toLocaleDateString() : ''}</p>
+          </div>
+          <div class="flex gap-1 flex-shrink-0">
+            ${item.status !== 'approved' ? `<button onclick="updateStatus('${item.__backendId}', 'approved')" class="w-8 h-8 rounded-lg bg-green-900/30 hover:bg-green-900/50 flex items-center justify-center text-green-400 transition" title="Approve"><i data-lucide="check" style="width:14px;height:14px;"></i></button>` : ''}
+            ${item.status !== 'rejected' ? `<button onclick="updateStatus('${item.__backendId}', 'rejected')" class="w-8 h-8 rounded-lg bg-red-900/30 hover:bg-red-900/50 flex items-center justify-center text-red-400 transition" title="Reject"><i data-lucide="x" style="width:14px;height:14px;"></i></button>` : ''}
+            <button onclick="confirmDelete('${item.__backendId}')" class="w-8 h-8 rounded-lg bg-red-900/20 hover:bg-red-900/40 flex items-center justify-center text-red-300/60 transition" title="Delete"><i data-lucide="trash-2" style="width:14px;height:14px;"></i></button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  lucide.createIcons();
+}
+
+async function updateStatus(backendId, newStatus) {
+  const item = allData.find(d => d.__backendId === backendId);
+  if (!item) return;
+  const btn = event.target.closest('button');
+  if (btn) btn.disabled = true;
+  const result = await window.dataSdk.update({ ...item, status: newStatus });
+  if (btn) btn.disabled = false;
+  if (result.isOk) {
+    showToast(`Status updated to ${newStatus}`);
+  } else {
+    showToast('Failed to update status', true);
+  }
+}
+
+let pendingDeleteId = null;
+function confirmDelete(backendId) {
+  const card = document.querySelector(`[data-admin-id="${backendId}"]`);
+  if (!card) return;
+  // Add inline confirmation
+  const overlay = document.createElement('div');
+  overlay.className = 'confirm-overlay';
+  overlay.innerHTML = `
+    <span class="text-sand text-sm">Delete?</span>
+    <button onclick="doDelete('${backendId}')" class="px-3 py-1 rounded-lg bg-red-600 text-white text-xs font-semibold hover:bg-red-500 transition">Yes</button>
+    <button onclick="cancelDelete('${backendId}')" class="px-3 py-1 rounded-lg bg-deep border border-gold/20 text-sand text-xs hover:bg-navy transition">No</button>
+  `;
+  card.style.position = 'relative';
+  card.appendChild(overlay);
+}
+
+function cancelDelete(backendId) {
+  const card = document.querySelector(`[data-admin-id="${backendId}"]`);
+  if (card) {
+    const overlay = card.querySelector('.confirm-overlay');
+    if (overlay) overlay.remove();
+  }
+}
+
+async function doDelete(backendId) {
+  const item = allData.find(d => d.__backendId === backendId);
+  if (!item) return;
+  const result = await window.dataSdk.delete(item);
+  if (result.isOk) {
+    showToast('Entry deleted');
+  } else {
+    showToast('Failed to delete', true);
+  }
+}
+
+// ==================== FORM HANDLERS ====================
+// Booking
+document.getElementById('booking-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Storage limit reached. Please contact admin.', true); return; }
+  const btn = document.getElementById('booking-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Processing...';
+
+  const result = await window.dataSdk.create({
+    type: 'booking',
+    name: document.getElementById('book-name').value,
+    email: document.getElementById('book-email').value,
+    phone: document.getElementById('book-phone').value,
+    service: document.getElementById('book-service').value,
+    date: document.getElementById('book-date').value,
+    passengers: parseInt(document.getElementById('book-passengers').value) || 1,
+    message: document.getElementById('book-message').value,
+    status: 'pending',
+    rating: 0,
+    review_text: '',
+    nationality: '',
+    purpose: '',
+    created_at: new Date().toISOString(),
+  });
+
+  btn.disabled = false;
+  btn.innerHTML = '<i data-lucide="calendar-check" style="width:20px;height:20px;"></i><span>Confirm Booking</span>';
+  lucide.createIcons();
+
+  if (result.isOk) {
+    showToast('Booking submitted successfully! We\'ll contact you soon.');
+    e.target.reset();
+  } else {
+    showToast('Failed to submit booking. Please try again.', true);
+  }
+});
+
+// Contact
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Storage limit reached.', true); return; }
+  const btn = document.getElementById('contact-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Sending...';
+
+  const result = await window.dataSdk.create({
+    type: 'contact',
+    name: document.getElementById('contact-name').value,
+    email: document.getElementById('contact-email').value,
+    phone: '',
+    message: document.getElementById('contact-message').value,
+    service: '',
+    date: '',
+    passengers: 0,
+    status: 'pending',
+    rating: 0,
+    review_text: '',
+    nationality: '',
+    purpose: '',
+    created_at: new Date().toISOString(),
+  });
+
+  btn.disabled = false;
+  btn.innerHTML = '<i data-lucide="send" style="width:18px;height:18px;"></i><span>Send Message</span>';
+  lucide.createIcons();
+
+  if (result.isOk) {
+    showToast('Message sent! We\'ll get back to you shortly.');
+    e.target.reset();
+  } else {
+    showToast('Failed to send message.', true);
+  }
+});
+
+// Membership
+document.getElementById('membership-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Storage limit reached.', true); return; }
+  const btn = document.getElementById('membership-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+  const result = await window.dataSdk.create({
+    type: 'membership',
+    name: document.getElementById('mem-name').value,
+    email: document.getElementById('mem-email').value,
+    phone: document.getElementById('mem-phone').value,
+    nationality: document.getElementById('mem-nationality').value,
+    purpose: document.getElementById('mem-purpose').value,
+    message: document.getElementById('mem-message').value,
+    service: '',
+    date: '',
+    passengers: 0,
+    status: 'pending',
+    rating: 0,
+    review_text: '',
+    created_at: new Date().toISOString(),
+  });
+
+  btn.disabled = false;
+  btn.innerHTML = '<i data-lucide="user-plus" style="width:20px;height:20px;"></i><span>Apply for Membership</span>';
+  lucide.createIcons();
+
+  if (result.isOk) {
+    showToast('Membership application submitted! Welcome aboard! 🎉');
+    e.target.reset();
+  } else {
+    showToast('Failed to submit application.', true);
+  }
+});
+
+// Review
+document.getElementById('review-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (selectedRating === 0) { showToast('Please select a star rating.', true); return; }
+  if (allData.length >= 999) { showToast('Storage limit reached.', true); return; }
+  const btn = document.getElementById('review-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+  const result = await window.dataSdk.create({
+    type: 'review',
+    name: document.getElementById('review-name').value,
+    email: '',
+    phone: '',
+    message: '',
+    service: '',
+    date: '',
+    passengers: 0,
+    status: 'approved',
+    rating: selectedRating,
+    review_text: document.getElementById('review-text').value,
+    nationality: '',
+    purpose: '',
+    created_at: new Date().toISOString(),
+  });
+
+  btn.disabled = false;
+  btn.innerHTML = '<i data-lucide="send" style="width:18px;height:18px;"></i><span>Submit Review</span>';
+  lucide.createIcons();
+
+  if (result.isOk) {
+    showToast('Thank you for your review! ⭐');
+    e.target.reset();
+    selectedRating = 0;
+    updateStarUI();
+  } else {
+    showToast('Failed to submit review.', true);
+  }
+});
+
+// Star rating
+document.querySelectorAll('.star-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    selectedRating = parseInt(btn.dataset.star);
+    updateStarUI();
+  });
+});
+
+function updateStarUI() {
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    const star = parseInt(btn.dataset.star);
+    btn.classList.toggle('star-active', star <= selectedRating);
+    btn.classList.toggle('star-inactive', star > selectedRating);
+  });
+}
+
+// ==================== TOAST ====================
+function showToast(message, isError = false) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  if (isError) toast.style.borderColor = '#ef4444';
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.4s'; setTimeout(() => toast.remove(), 400); }, 3500);
+}
+
+// ==================== MOBILE MENU ====================
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.add('hidden');
+}
+
+// ==================== SCROLL REVEALS ====================
+function handleScrollReveal() {
+  document.querySelectorAll('.section-reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) {
+      el.classList.add('visible');
+    }
+  });
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  renderServices();
+  lucide.createIcons();
+  handleScrollReveal();
+
+  const appEl = document.getElementById('app');
+  if (appEl) appEl.addEventListener('scroll', handleScrollReveal);
+  window.addEventListener('scroll', handleScrollReveal);
+});
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddd8053d1921553',t:'MTc3Mzc2NjI3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
