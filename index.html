@@ -6,8 +6,6 @@
   <title>Chuu - 去 - Чүү</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <script src="/_sdk/data_sdk.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 
@@ -982,22 +980,7 @@ function darkenColor(hex, amount) {
   return '#' + (r<<16|g<<8|b).toString(16).padStart(6,'0');
 }
 
-if (window.elementSdk) {
-  window.elementSdk.init({
-    defaultConfig,
-    onConfigChange: async (config) => { applyConfig(config); },
-    mapToCapabilities: (config) => ({
-      recolorables: [
-        { get: () => config.background_color      || defaultConfig.background_color,      set: v => { config.background_color = v;      window.elementSdk.setConfig({ background_color: v }); } },
-        { get: () => config.surface_color         || defaultConfig.surface_color,         set: v => { config.surface_color = v;          window.elementSdk.setConfig({ surface_color: v }); } },
-        { get: () => config.text_color            || defaultConfig.text_color,            set: v => { config.text_color = v;             window.elementSdk.setConfig({ text_color: v }); } },
-        { get: () => config.primary_action_color  || defaultConfig.primary_action_color,  set: v => { config.primary_action_color = v;   window.elementSdk.setConfig({ primary_action_color: v }); } },
-        { get: () => config.secondary_action_color|| defaultConfig.secondary_action_color,set: v => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
-      ],
-      borderables: [],
-      fontEditable: {
-        get: () => config.font_family || defaultConfig.font_family,
-        set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+// elementSdk not available in standalone mode
       },
       fontSizeable: {
         get: () => config.font_size || defaultConfig.font_size,
@@ -1017,7 +1000,77 @@ if (window.elementSdk) {
 }
 
 // ==================== DATA SDK ====================
-const dataHandler = {
+// ==================== LOCAL DATA SDK (localStorage) ====================
+const LOCAL_STORAGE_KEY = 'chuu_data';
+
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveData(data) {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+}
+function genId() {
+  return 'local_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+}
+
+let _dataChangedCallback = null;
+function _notifyChanged() {
+  const data = loadData();
+  allData = data;
+  if (_dataChangedCallback) _dataChangedCallback(data);
+}
+
+window.dataSdk = {
+  init(handler) {
+    _dataChangedCallback = (data) => {
+      handler.onDataChanged(data);
+    };
+    // Fire immediately with existing data
+    const existing = loadData();
+    allData = existing;
+    handler.onDataChanged(existing);
+    return Promise.resolve({ isOk: true });
+  },
+  create(payload) {
+    try {
+      const data = loadData();
+      const item = { ...payload, __backendId: genId() };
+      data.push(item);
+      saveData(data);
+      _notifyChanged();
+      return Promise.resolve({ isOk: true });
+    } catch (e) {
+      return Promise.resolve({ isOk: false });
+    }
+  },
+  update(item) {
+    try {
+      const data = loadData();
+      const idx = data.findIndex(d => d.__backendId === item.__backendId);
+      if (idx !== -1) data[idx] = item;
+      saveData(data);
+      _notifyChanged();
+      return Promise.resolve({ isOk: true });
+    } catch (e) {
+      return Promise.resolve({ isOk: false });
+    }
+  },
+  delete(item) {
+    try {
+      let data = loadData();
+      data = data.filter(d => d.__backendId !== item.__backendId);
+      saveData(data);
+      _notifyChanged();
+      return Promise.resolve({ isOk: true });
+    } catch (e) {
+      return Promise.resolve({ isOk: false });
+    }
+  }
+};
+
+// Init the local SDK immediately
+window.dataSdk.init({
   onDataChanged(data) {
     allData = data;
     renderReviews();
@@ -1025,13 +1078,7 @@ const dataHandler = {
     const modal = document.getElementById('admin-modal');
     if (modal && !modal.classList.contains('hidden')) renderAdminContent();
   }
-};
-(async () => {
-  if (window.dataSdk) {
-    const result = await window.dataSdk.init(dataHandler);
-    if (!result.isOk) console.error('Data SDK init failed');
-  }
-})();
+});
 
 // ==================== RENDER SERVICES ====================
 function renderServices() {
@@ -1177,7 +1224,6 @@ function renderAdminContent() {
 }
 
 async function updateStatus(backendId, newStatus) {
-  if (!window.dataSdk) { showToast('Data service unavailable.', true); return; }
   const item = allData.find(d => d.__backendId === backendId);
   if (!item) return;
   const result = await window.dataSdk.update({ ...item, status: newStatus });
@@ -1205,7 +1251,6 @@ function cancelDelete(backendId) {
   if (card) { const o = card.querySelector('.confirm-overlay'); if (o) o.remove(); }
 }
 async function doDelete(backendId) {
-  if (!window.dataSdk) { showToast('Data service unavailable.', true); return; }
   const item = allData.find(d => d.__backendId === backendId);
   if (!item) return;
   const result = await window.dataSdk.delete(item);
@@ -1276,11 +1321,6 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
     created_at:   new Date().toISOString(),
   };
 
-  if (!window.dataSdk) {
-    btn.disabled = false;
-    showToast('Data service unavailable. Please reload the page.', true);
-    return;
-  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1322,11 +1362,6 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
     created_at:   new Date().toISOString(),
   };
 
-  if (!window.dataSdk) {
-    btn.disabled = false;
-    showToast('Data service unavailable. Please reload the page.', true);
-    return;
-  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1368,11 +1403,6 @@ document.getElementById('membership-form').addEventListener('submit', async (e) 
     created_at:   new Date().toISOString(),
   };
 
-  if (!window.dataSdk) {
-    btn.disabled = false;
-    showToast('Data service unavailable. Please reload the page.', true);
-    return;
-  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1415,11 +1445,6 @@ document.getElementById('review-form').addEventListener('submit', async (e) => {
     created_at:   new Date().toISOString(),
   };
 
-  if (!window.dataSdk) {
-    btn.disabled = false;
-    showToast('Data service unavailable. Please reload the page.', true);
-    return;
-  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
