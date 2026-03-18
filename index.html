@@ -2,7 +2,6 @@
 <html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="/logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chuu - 去 - Чүү</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -1178,6 +1177,7 @@ function renderAdminContent() {
 }
 
 async function updateStatus(backendId, newStatus) {
+  if (!window.dataSdk) { showToast('Data service unavailable.', true); return; }
   const item = allData.find(d => d.__backendId === backendId);
   if (!item) return;
   const result = await window.dataSdk.update({ ...item, status: newStatus });
@@ -1205,6 +1205,7 @@ function cancelDelete(backendId) {
   if (card) { const o = card.querySelector('.confirm-overlay'); if (o) o.remove(); }
 }
 async function doDelete(backendId) {
+  if (!window.dataSdk) { showToast('Data service unavailable.', true); return; }
   const item = allData.find(d => d.__backendId === backendId);
   if (!item) return;
   const result = await window.dataSdk.delete(item);
@@ -1275,6 +1276,11 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
     created_at:   new Date().toISOString(),
   };
 
+  if (!window.dataSdk) {
+    btn.disabled = false;
+    showToast('Data service unavailable. Please reload the page.', true);
+    return;
+  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1316,6 +1322,11 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
     created_at:   new Date().toISOString(),
   };
 
+  if (!window.dataSdk) {
+    btn.disabled = false;
+    showToast('Data service unavailable. Please reload the page.', true);
+    return;
+  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1357,6 +1368,11 @@ document.getElementById('membership-form').addEventListener('submit', async (e) 
     created_at:   new Date().toISOString(),
   };
 
+  if (!window.dataSdk) {
+    btn.disabled = false;
+    showToast('Data service unavailable. Please reload the page.', true);
+    return;
+  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1399,6 +1415,11 @@ document.getElementById('review-form').addEventListener('submit', async (e) => {
     created_at:   new Date().toISOString(),
   };
 
+  if (!window.dataSdk) {
+    btn.disabled = false;
+    showToast('Data service unavailable. Please reload the page.', true);
+    return;
+  }
   const result = await window.dataSdk.create(payload);
 
   btn.disabled = false;
@@ -1465,6 +1486,7 @@ function handleScrollReveal() {
     }
   });
 }
+
 
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
