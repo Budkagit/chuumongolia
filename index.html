@@ -1470,7 +1470,16 @@ function handleScrollReveal() {
   });
 }
 
+
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
   renderServices();
   lucide.createIcons();
+  handleScrollReveal();
+  const appEl = document.getElementById('app');
+  if (appEl) appEl.addEventListener('scroll', handleScrollReveal);
+  window.addEventListener('scroll', handleScrollReveal);
+});
+</script>
+</body>
+</html>
