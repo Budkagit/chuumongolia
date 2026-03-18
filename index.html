@@ -1235,7 +1235,7 @@ function exportToExcel() {
 
 // ==================== GOOGLE SHEETS SYNC ====================
 // STEP 1: Paste your Apps Script deployment URL here after deploying
-const SHEETS_WEBHOOK_URL = '1tDzOOepAvCi15X-10eoXisMmwyYi-E9gVXsO07wq33_JdanpJpCxIkwK';
+const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzhfxEmEaGC8kJqU5NcwwjPFNKILBC6NxQkJ9XLu0fyoa9L8Pm_m_dJS_Mu0kMwa1Ed/exec';
 
 async function sendToSheets(payload) {
   if (SHEETS_WEBHOOK_URL.includes('YOUR_SCRIPT_ID')) return; // not configured yet
