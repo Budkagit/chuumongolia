@@ -981,23 +981,6 @@ function darkenColor(hex, amount) {
 }
 
 // elementSdk not available in standalone mode
-      },
-      fontSizeable: {
-        get: () => config.font_size || defaultConfig.font_size,
-        set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
-      },
-    }),
-    mapToEditPanelValues: (config) => new Map([
-      ['hero_title',          config.hero_title           || defaultConfig.hero_title],
-      ['hero_subtitle',       config.hero_subtitle        || defaultConfig.hero_subtitle],
-      ['about_heading',       config.about_heading        || defaultConfig.about_heading],
-      ['about_text',          config.about_text           || defaultConfig.about_text],
-      ['services_heading',    config.services_heading     || defaultConfig.services_heading],
-      ['contact_email_value', config.contact_email_value  || defaultConfig.contact_email_value],
-      ['contact_phone_value', config.contact_phone_value  || defaultConfig.contact_phone_value],
-    ]),
-  });
-}
 
 // ==================== DATA SDK ====================
 // ==================== LOCAL DATA SDK (localStorage) ====================
@@ -1511,6 +1494,7 @@ function handleScrollReveal() {
     }
   });
 }
+
 
 
 // ==================== INIT ====================
